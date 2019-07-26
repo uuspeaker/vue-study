@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app" class="index-middle">
     <!--img src="./assets/logo.png"-->
     <router-view/>
   </div>
@@ -19,5 +19,9 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+}
+.index-middle {
+  padding-left: 20%;
+  padding-right: 20%;
 }
 </style>
