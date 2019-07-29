@@ -6,6 +6,7 @@ import Head from '@/page/main/Head'
 import Pic from '@/page/main/Pic'
 import Cropper from '@/page/exercise/Cropper'
 import Cropper2 from '@/page/exercise/Cropper2'
+import ScanExercise from '@/page/exercise/ScanExercise'
 
 Vue.use(Router)
 
@@ -17,6 +18,7 @@ export default new Router({
     {path: '/head', name: 'Head', component: Head},
     {path: '/cropper', name: 'Cropper', component: Cropper},
     {path: '/cropper2', name: 'Cropper2', component: Cropper2},
+    {path: '/scanExercise', name: 'ScanExercise', component: ScanExercise},
     {path: '/pic', name: 'Pic', component: Pic}
   ]
 })
