@@ -5,7 +5,7 @@
     <!-- element 上传图片按钮 -->
     <template>
       <el-row>
-      <div style="float:left;font-size:20px;font-weight:bold">上传练习</div>
+      <div style="float:left;font-size:20px;font-weight:bold;margin-top:40px">上传练习</div>
       </el-row>
     <el-row>
     <el-upload
@@ -28,7 +28,7 @@
         <div v-for="completedExercise in completedExercises" :key="completedExercise">
           <el-col :span="8" class="block">
               <span class="demonstration">{{ completedExercise.name}}</span>
-              <el-image :src="completedExercise.src" style="width: 250px; height: 150px" fit="fill"></el-image>
+              <el-image :src="completedExercise.src" :preview-src-list="[completedExercise.src]" style="width: 250px; height: 150px" fit="fill"></el-image>
           </el-col>
         </div>
       </el-row>
@@ -42,7 +42,7 @@
         <div v-for="completedExercise in completedExercises" :key="completedExercise">
           <el-col :span="8" class="block">
               <span class="demonstration">{{ completedExercise.name}}</span>
-              <el-image :src="completedExercise.src" style="width: 250px; height: 150px" fit="fill"></el-image>
+              <el-image :src="completedExercise.src" :preview-src-list="[completedExercise.src]" style="width: 250px; height: 150px" fit="fill"></el-image>
           </el-col>
         </div>
       </el-row>

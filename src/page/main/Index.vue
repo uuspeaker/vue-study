@@ -2,13 +2,21 @@
   <div >
   <pageHead></pageHead>
 
+  <template>
+    <el-carousel :interval="3000" arrow="always" >
+      <el-carousel-item v-for="carouselItem in carouselItems" :key="carouselItem">
+        <el-image :src="carouselItem" @click="toCourseDetail"></el-image>
+      </el-carousel-item>
+    </el-carousel>
+  </template>
+
 <template>
   <el-row>
   <div style="float:left;font-size:20px;font-weight:bold">热门课程</div>
   </el-row>
 <el-row>
-  <el-col :span="8" v-for="course in courses" :key="course">
-    <div class="outline" >
+  <el-col :span="8" v-for="course in courses" :key="course" >
+    <div class="outline" @click="toCourseDetail">
       <div class="course-type orange-text" >{{course.courseType}}</div>
       <div class="course-title" >{{course.courseTitle}}</div>
     </div>
@@ -23,13 +31,18 @@
 
 <script>
 import pageHead from '@/components/PageHead.vue'
+
 export default {
   components: { pageHead },
   data () {
     return {
-      courses: [{courseType: "几何",courseTitle: "几何训练营"}]
+      carouselItems: [require('../../assets/carousel1.jpeg'),require('../../assets/carousel2.jpeg')],
+      courses: [{courseType: "几何",courseTitle: "几何训练营"}],
     }
   },
+  methods: {
+    toCourseDetail() {this.$router.push({path: '/courseDetail',})},
+  }
 }
 </script>
 <style>

@@ -25,7 +25,7 @@
     </el-col>
     <el-col :span="5">
 
-        <a class="orange-text" style="font-size:18px;float:right;padding-top:10px;}" >登陆/注册</a>
+        <a class="orange-text" style="font-size:18px;float:right;padding-top:10px;}" @click="dialogVisible = true">登陆/注册</a>
 
     </el-col>
   </el-row>
@@ -34,29 +34,27 @@
 <template>
   <div style="padding-left:30px;padding-right:30px;">
   <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select="handleSelect" >
-  <el-menu-item index="1" class="menu">数学天地</el-menu-item>
+  <el-menu-item index="1" class="menu" @click="toIndex">课程天地</el-menu-item>
   <el-menu-item index="2" class="menu">精品辅导</el-menu-item>
-  <el-menu-item index="3" class="menu">课程秒杀</el-menu-item>
-  <el-menu-item index="4" class="menu">脑力训练</el-menu-item>
-  <el-menu-item index="5" class="menu" v-on:click="toCourse">我的课程</el-menu-item>
-  <el-menu-item index="6" class="menu" v-on:click="toExercise">扫描练习</el-menu-item>
+  <el-menu-item index="4" class="menu" @click="toBrain">脑力训练</el-menu-item>
+  <el-menu-item index="5" class="menu" @click="toCourse">我的课程</el-menu-item>
+  <el-menu-item index="6" class="menu" @click="toExercise">扫描练习</el-menu-item>
 </el-menu>
 <div class="line"></div>
 </div>
 </template>
 
-<template>
-  <el-carousel :interval="3000" arrow="always">
-    <el-carousel-item v-for="carouselItem in carouselItems" :key="carouselItem">
-      <el-image :src="carouselItem"></el-image>
-    </el-carousel-item>
-  </el-carousel>
-</template>
+<el-dialog :visible.sync="dialogVisible">
+  <el-image :src="src"  fit="fill"></el-image>
+</el-dialog>
+
 
 </div>
 </template>
 
 <script>
+//import login from '@/components/Login.vue'
+
 function toUrl(url){
   Vue.$router.push({
     path: url,
@@ -64,14 +62,14 @@ function toUrl(url){
 }
 export default {
   data () {
+
     return {
       exampleUrl: require('../assets/top.png'),
       logoUrl: require('../assets/logo-study.png'),
 
-      activeIndex: '1',
-      activeIndex2: '1',
-
-      carouselItems: [require('../assets/carousel1.jpeg'),require('../assets/carousel2.jpeg')],
+      //activeIndex: '1',
+      src: require('../assets/login.png'),
+      dialogVisible: false,
     }
   },
   methods: {
@@ -80,7 +78,9 @@ export default {
       },
       toExercise() {this.$router.push({path: '/scanExercise',})},
       toCourse() {this.$router.push({path: '/courseIndex',})},
+      toBrain() {this.$router.push({path: '/brainIndex',})},
       toIndex() {this.$router.push({path: '/',})},
+
     }
 }
 </script>

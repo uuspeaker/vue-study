@@ -8,6 +8,10 @@ import Cropper from '@/page/exercise/Cropper'
 import Cropper2 from '@/page/exercise/Cropper2'
 import ScanExercise from '@/page/exercise/ScanExercise'
 import CourseIndex from '@/page/course/CourseIndex'
+import CourseDetail from '@/page/course/CourseDetail'
+import CourseRecord from '@/page/course/CourseRecord'
+import CourseOnline from '@/page/course/CourseOnline'
+import BrainIndex from '@/page/brain/BrainIndex'
 
 Vue.use(Router)
 
@@ -21,6 +25,10 @@ export default new Router({
     {path: '/cropper2', name: 'Cropper2', component: Cropper2},
     {path: '/scanExercise', name: 'ScanExercise', component: ScanExercise},
     {path: '/courseIndex', name: 'CourseIndex', component: CourseIndex},
+    {path: '/courseDetail', name: 'CourseDetail', component: CourseDetail},
+    {path: '/courseRecord', name: 'CourseRecord', component: CourseRecord},
+    {path: '/courseOnline', name: 'CourseOnline', component: CourseOnline},
+    {path: '/brainIndex', name: 'BrainIndex', component: BrainIndex},
     {path: '/pic', name: 'Pic', component: Pic}
   ]
 })
