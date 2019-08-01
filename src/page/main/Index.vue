@@ -15,7 +15,7 @@
   <div style="float:left;font-size:20px;font-weight:bold" @click="getData">热门课程{{ test }}</div>
   </el-row>
 <el-row>
-  <el-col :span="8" v-for="course in courses" :key="course" >
+  <el-col :span="8" v-for="course in courses" :key="course.id" >
     <div class="outline" @click="toCourseDetail">
       <div class="course-type orange-text" >{{course.courseType}}</div>
       <div class="course-title" >{{course.courseTitle}}</div>
@@ -37,7 +37,7 @@ export default {
   data () {
     return {
       carouselItems: [require('../../assets/carousel1.jpeg'),require('../../assets/carousel2.jpeg')],
-      courses: [{courseType: "几何",courseTitle: "几何训练营"}],
+      courses: [{id: 1, courseType: "几何", courseTitle: "几何训练营"}],
       test: "old"
     }
   },
@@ -49,13 +49,13 @@ export default {
           message: '这是一条成功的提示消息',
           type: 'success'
         });
-      this.$axios.get({
+      this.$axios({
         method: 'get',
-        url: 'host/json'
+        url: '/json'
       }).then((response) => {
         this.$message('正常返回');
         console.log(response)
-        this.test = response
+        this.test = response.data
       }).catch( (error) => {
         this.$message.error('异常');
         console.log(error)

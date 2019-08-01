@@ -16,7 +16,7 @@ module.exports = {
         changeOrigin: true
       },
       pathRewrite: {
-      '^/host': '/'      // 理解就是： 用/list 代替target里面的地址，
+      '^/api': '/'      // 理解就是： 用/list 代替target里面的地址，
                         // 例如：调用 'http://40.00.100.100:8080/user/add' 可直接写成'/list/user/add'
     }
     },

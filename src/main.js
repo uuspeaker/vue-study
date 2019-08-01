@@ -7,6 +7,12 @@ import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import VueCropper from 'vue-cropper'
 import axios from "axios";
+import qs from 'qs'
+
+//设置baseURL
+axios.defaults.baseURL = 'http://localhost:3000';
+//请求头
+axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 
 Vue.use(VueCropper)
 Vue.use(ElementUI)
