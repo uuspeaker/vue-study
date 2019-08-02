@@ -37,7 +37,7 @@ export default {
   data () {
     return {
       carouselItems: [require('../../assets/carousel1.jpeg'),require('../../assets/carousel2.jpeg')],
-      courses: [{id: 1, courseType: "几何", courseTitle: "几何训练营"}],
+      courses: [{id: 1, courseType: "几何", courseTitle: "几何训练营1"}],
       test: "old"
     }
   },
@@ -50,8 +50,8 @@ export default {
           type: 'success'
         });
       this.$axios({
-        method: 'get',
-        url: '/json'
+        method: 'post',
+        url: '/users'
       }).then((response) => {
         this.$message('正常返回');
         console.log(response)
