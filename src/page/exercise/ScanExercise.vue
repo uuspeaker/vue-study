@@ -2,21 +2,38 @@
 <template>
   <div>
     <pageHead></pageHead>
+    <form action="http://localhost:3000/upload" method="POST" enctype="multipart/form-data">
+    <input type="file" name="file" />
+    <button>Send file!</button>
+</form>
+<el-upload
+  class="upload-demo"
+  ref="upload"
+  action="http://localhost:3000/upload"
+  method="POST"
+  :on-preview="handlePreview"
+  :on-remove="handleRemove"
+  :file-list="fileList"
+  :auto-upload="false">
+  <el-button slot="trigger" size="small" type="primary">选取文件</el-button>
+  <el-button style="margin-left: 10px;" size="small" type="success" @click="submitUpload">上传到服务器</el-button>
+  <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
+</el-upload>
     <!-- element 上传图片按钮 -->
     <template>
       <el-row>
       <div style="float:left;font-size:20px;font-weight:bold;margin-top:40px">上传练习</div>
       </el-row>
     <el-row>
-    <el-upload
+      <el-upload
     class="upload-demo"
     drag
-    action="https://jsonplaceholder.typicode.com/posts/"
-    multiple>
+    action="http://localhost:3000/upload/"
+    >
     <i class="el-icon-upload"></i>
-    <div class="el-upload__text" @click="getInfo">将文件拖到此处，或<em>点击上传</em></div>
+    <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
     <div class="el-upload__tip" slot="tip">只能上传jpg/png文件，且不超过500kb</div>
-    </el-upload>
+  </el-upload>
   </el-row>
   </template>
 
@@ -71,18 +88,15 @@ export default {
     console.log(this, 'breforeCreate')
   },
   methods: {
-    getInfo(){
-      console.log(this, 'getInfo')
-
-      axios.get('/user?ID=12345')
-        .then(function (response) {
-          console.log(response);
-        })
-        .catch(function (response) {
-          console.log(response);
-        });
-
+    beforeUpload(file){
+      let fd = new FormData();
+      fd.append('file',file);//传文件
+      axios.post('http://localhost:3000/upload',fd).then(function(res){
+        alert(res)
+      }
+      );
     },
+
   },
 
 }
