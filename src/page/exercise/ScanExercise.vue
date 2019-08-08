@@ -1,4 +1,3 @@
-
 <template>
   <div>
     <pageHead></pageHead>
@@ -97,7 +96,11 @@ export default {
       );
     },
 
+<<<<<<< HEAD
   },
+=======
+  }
+>>>>>>> f3393388f5c178a6fd50e2dbf4e76989e30c84ea
 
 }
 </script>
