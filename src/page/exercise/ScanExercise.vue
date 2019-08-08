@@ -83,24 +83,7 @@ export default {
       completedExercises: completedExercises,
     }
   },
-  beforeCreate () {
-    console.log(this, 'breforeCreate')
-  },
-  methods: {
-    beforeUpload(file){
-      let fd = new FormData();
-      fd.append('file',file);//传文件
-      axios.post('http://localhost:3000/upload',fd).then(function(res){
-        alert(res)
-      }
-      );
-    },
 
-<<<<<<< HEAD
-  },
-=======
-  }
->>>>>>> f3393388f5c178a6fd50e2dbf4e76989e30c84ea
 
 }
 </script>
