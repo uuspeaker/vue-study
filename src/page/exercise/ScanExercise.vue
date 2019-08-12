@@ -5,7 +5,13 @@
     <input type="file" name="file" />
     <button>Send file!</button>
 </form>
-<el-upload
+
+<el-button style="margin-left: 10px;" size="small" type="success" @click="getTestPaper">查询试卷信息</el-button>
+
+<div class="demo-image__lazy">
+  <el-image v-for="subject in subjects" :key="subject.imageUrl" :src="subject.imageUrl" lazy></el-image>
+</div>
+<!--el-upload
   class="upload-demo"
   ref="upload"
   action="http://localhost:3000/upload"
@@ -18,7 +24,7 @@
   <el-button style="margin-left: 10px;" size="small" type="success" @click="submitUpload">上传到服务器</el-button>
   <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
 </el-upload>
-    <!-- element 上传图片按钮 -->
+    <!-- element 上传图片按钮 >
     <template>
       <el-row>
       <div style="float:left;font-size:20px;font-weight:bold;margin-top:40px">上传练习</div>
@@ -34,7 +40,7 @@
     <div class="el-upload__tip" slot="tip">只能上传jpg/png文件，且不超过500kb</div>
   </el-upload>
   </el-row>
-  </template>
+</template-->
 
     <template>
       <el-row>
@@ -65,6 +71,8 @@
     </template>
 
 
+
+
   </div>
 </template>
 
@@ -76,13 +84,29 @@ completedExercises.push({name: "2019年6月10日数学考试",src:require("../..
 completedExercises.push({name: "2019年5月10日数学考试",src:require("../../assets/math.jpg")})
 completedExercises.push({name: "2019年4月10日数学考试",src:require("../../assets/math.jpg")})
 
+var subjects = []
+
 export default {
   components: { pageHead },
   data() {
     return {
       completedExercises: completedExercises,
+      subjects: subjects
     }
   },
+  methods: {
+    getTestPaper(){
+      this.$message('点击查询');
+      this.$axios({
+        method: 'get',
+        url: '/testPaper'
+      })
+      .then((result) => {
+        this.$message('查询完成');
+        subjects = result[0]
+  })
+    }
+  }
 
 
 }
