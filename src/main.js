@@ -10,7 +10,8 @@ import axios from "axios";
 import qs from 'qs'
 
 //设置baseURL
-axios.defaults.baseURL = 'http://localhost:3000';
+// axios.defaults.baseURL = 'http://localhost:3000';
+axios.defaults.baseURL = 'http://129.211.21.250:3000';
 //请求头
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 

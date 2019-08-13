@@ -1,16 +1,33 @@
 <template>
   <div>
     <pageHead></pageHead>
-    <form action="http://localhost:3000/upload" method="POST" enctype="multipart/form-data">
+    <form action="http://129.211.21.250:3000/upload" method="POST" enctype="multipart/form-data">
     <input type="file" name="file" />
     <button>Send file!</button>
 </form>
 
-<el-button style="margin-left: 10px;" size="small" type="success" @click="getTestPaper">查询试卷信息</el-button>
+<el-button style="margin-left: 10px;" size="small" type="success" @click="queryPaper">查询试卷信息</el-button>
+<template>
+  <el-select v-model="selectValue" placeholder="请选择" @change="changePaper">
+    <el-option
+      v-for="item in options"
+      :key="item.value"
+      :lable="item.lable"
+      :value="item.value">
+    </el-option>
+  </el-select>
+</template>
 
 <div class="demo-image__lazy">
-  <el-image v-for="subject in subjects" :key="subject.imageUrl" :src="subject.imageUrl" lazy></el-image>
+  <div v-for="subject in subjects" style="margin-top:40px;border:2px">
+  <el-image  :src="subject.imageUrl" lazy></el-image>
+  <div v-for="item in subject.content">
+  <div style="font-weight: 20px;text-align: left;">{{item}}</div>
+  </div>
+  <div style="border-top: 2px solid red;width: 800px;margin-top:10px"></div>
+  </div>
 </div>
+
 <!--el-upload
   class="upload-demo"
   ref="upload"
@@ -47,7 +64,7 @@
       <div style="float:left;font-size:20px;font-weight:bold;margin-top:10px">我的练习(未批改)</div>
       </el-row>
       <el-row>
-        <div v-for="completedExercise in completedExercises" :key="completedExercise">
+        <div v-for="completedExercise in completedExercises">
           <el-col :span="8" class="block">
               <span class="demonstration">{{ completedExercise.name}}</span>
               <el-image :src="completedExercise.src" :preview-src-list="[completedExercise.src]" style="width: 250px; height: 150px" fit="fill"></el-image>
@@ -61,7 +78,7 @@
       <div style="float:left;font-size:20px;font-weight:bold;margin-top:10px">我的练习(已批改)</div>
       </el-row>
       <el-row>
-        <div v-for="completedExercise in completedExercises" :key="completedExercise">
+        <div v-for="completedExercise in completedExercises" >
           <el-col :span="8" class="block">
               <span class="demonstration">{{ completedExercise.name}}</span>
               <el-image :src="completedExercise.src" :preview-src-list="[completedExercise.src]" style="width: 250px; height: 150px" fit="fill"></el-image>
@@ -79,36 +96,64 @@
 <script>
 import pageHead from '@/components/PageHead.vue'
 
-var completedExercises = []
-completedExercises.push({name: "2019年6月10日数学考试",src:require("../../assets/math.jpg")})
-completedExercises.push({name: "2019年5月10日数学考试",src:require("../../assets/math.jpg")})
-completedExercises.push({name: "2019年4月10日数学考试",src:require("../../assets/math.jpg")})
-
-var subjects = []
-
 export default {
   components: { pageHead },
   data() {
     return {
-      completedExercises: completedExercises,
-      subjects: subjects
+      completedExercises: [
+        {name: "2019年6月10日数学考试",src:require("../../assets/math.jpg")},
+        {name: "2019年5月10日数学考试",src:require("../../assets/math.jpg")},
+        {name: "2019年4月10日数学考试",src:require("../../assets/math.jpg")},
+      ],
+      papers: [],
+      options: [],
+      subjects: [],
+      selectValue: '',
+      demoUrl: 'https://vue-1255824916.cos.ap-guangzhou.myqcloud.com/8b490b80-bdd3-11e9-a5dc-7b138c49d7db.png'
     }
   },
   methods: {
-    getTestPaper(){
+    queryPaper(){
+      this.papers = []
+      this.options = []
       this.$message('点击查询');
       this.$axios({
         method: 'get',
         url: '/testPaper'
       })
       .then((result) => {
-        this.$message('查询完成');
-        subjects = result[0]
-  })
+
+        console.log(result)
+        this.papers = result.data
+
+        console.log(this.subjects)
+        this.papers.map((data) => {
+          this.options.push({
+            value: data._id,
+            lable: data._id,
+          })
+          data.subjects.map((subject) => {
+            subject.imageUrl = "https://" + subject.imageUrl
+          })
+        })
+        if(this.papers[0]){
+          this.subjects = this.papers[0].subjects
+        }
+      })
+    },
+    changePaper(e,item){
+      this.$message(this.selectValue);
+      console.log("selectValue",this.selectValue)
+      for (var i = 0; i < this.options.length; i++) {
+        if(this.options[i].value == this.selectValue){
+          this.subjects = this.papers[i].subjects
+
+        }
+      }
+
     }
+
   }
-
-
 }
 </script>
 <style>
