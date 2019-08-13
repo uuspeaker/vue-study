@@ -1,11 +1,23 @@
 <template>
   <div>
     <pageHead></pageHead>
+    <template>
+      <el-row>
+      <div style="float:left;font-size:20px;font-weight:bold;margin-top:10px">OCR识别试卷</div>
+      </el-row>
+      <el-row>
     <form action="http://129.211.21.250:3000/upload" method="POST" enctype="multipart/form-data">
     <input type="file" name="file" />
-    <button>Send file!</button>
-</form>
+    <button>ocr识别</button>
+    </form>
+    </el-row>
+  </template>
 
+  <template>
+    <el-row>
+    <div style="float:left;font-size:20px;font-weight:bold;margin-top:10px">查询识别结果</div>
+    </el-row>
+    <el-row>
 <el-button style="margin-left: 10px;" size="small" type="success" @click="queryPaper">查询试卷信息</el-button>
 <template>
   <el-select v-model="selectValue" placeholder="请选择" @change="changePaper">
@@ -16,6 +28,8 @@
       :value="item.value">
     </el-option>
   </el-select>
+</template>
+</el-row>
 </template>
 
 <div class="demo-image__lazy">
@@ -59,7 +73,7 @@
   </el-row>
 </template-->
 
-    <template>
+    <!--template>
       <el-row>
       <div style="float:left;font-size:20px;font-weight:bold;margin-top:10px">我的练习(未批改)</div>
       </el-row>
@@ -85,7 +99,7 @@
           </el-col>
         </div>
       </el-row>
-    </template>
+    </template-->
 
 
 

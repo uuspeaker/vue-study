@@ -38,7 +38,7 @@
   <el-menu-item index="2" class="menu">精品辅导</el-menu-item>
   <el-menu-item index="4" class="menu" @click="toBrain">脑力训练</el-menu-item>
   <el-menu-item index="5" class="menu" @click="toCourse">我的课程</el-menu-item>
-  <el-menu-item index="6" class="menu" @click="toExercise">扫描练习</el-menu-item>
+  <el-menu-item index="6" class="menu" @click="toExercise">上传练习</el-menu-item>
 </el-menu>
 <div class="line"></div>
 </div>
