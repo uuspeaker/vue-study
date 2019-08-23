@@ -6,9 +6,9 @@
       <div style="float:left;font-size:20px;font-weight:bold;margin-top:10px">OCR识别试卷</div>
       </el-row>
       <el-row>
-    <form action="http://129.211.21.250:3000/upload" method="POST" enctype="multipart/form-data">
+    <form action="http://localhost:3000/upload" method="POST" enctype="multipart/form-data">
     <input type="file" name="file" />
-    <button>ocr识别</button>
+    <button>ocr识别1</button>
     </form>
     </el-row>
   </template>
