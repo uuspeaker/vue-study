@@ -11,7 +11,7 @@
     <el-upload
   class="upload-demo"
   drag
-  action="http://localhost:3000/upload/"
+  action="http://129.211.21.250:3000/upload/"
   :on-progress="loading"
   :on-success="closeLoading"
   >
