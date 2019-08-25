@@ -1,17 +1,26 @@
 <template>
   <div>
     <pageHead></pageHead>
-    <template>
-      <el-row>
-      <div style="float:left;font-size:20px;font-weight:bold;margin-top:10px">OCR识别试卷</div>
-      </el-row>
-      <el-row>
-    <form action="http://localhost:3000/upload" method="POST" enctype="multipart/form-data">
-    <input type="file" name="file" />
-    <button>ocr识别1</button>
-    </form>
+
+  <!-- element 上传图片按钮 -->
+  <template>
+    <el-row>
+    <div style="float:left;font-size:20px;font-weight:bold;margin-top:40px">OCR识别试卷</div>
     </el-row>
-  </template>
+  <el-row>
+    <el-upload
+  class="upload-demo"
+  drag
+  action="http://localhost:3000/upload/"
+  :on-progress="loading"
+  :on-success="closeLoading"
+  >
+  <i class="el-icon-upload"></i>
+  <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
+  <div class="el-upload__tip" slot="tip">只能上传jpg/png文件，且不超过3M</div>
+</el-upload>
+</el-row>
+</template>
 
 <template>
   <el-row>
@@ -57,43 +66,13 @@
   </div>
 </div>
 
-<!--el-upload
-  class="upload-demo"
-  ref="upload"
-  action="http://localhost:3000/upload"
-  method="POST"
-  :on-preview="handlePreview"
-  :on-remove="handleRemove"
-  :file-list="fileList"
-  :auto-upload="false">
-  <el-button slot="trigger" size="small" type="primary">选取文件</el-button>
-  <el-button style="margin-left: 10px;" size="small" type="success" @click="submitUpload">上传到服务器</el-button>
-  <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
-</el-upload>
-    <!-- element 上传图片按钮 >
-    <template>
-      <el-row>
-      <div style="float:left;font-size:20px;font-weight:bold;margin-top:40px">上传练习</div>
-      </el-row>
-    <el-row>
-      <el-upload
-    class="upload-demo"
-    drag
-    action="http://localhost:3000/upload/"
-    >
-    <i class="el-icon-upload"></i>
-    <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
-    <div class="el-upload__tip" slot="tip">只能上传jpg/png文件，且不超过500kb</div>
-  </el-upload>
-  </el-row>
-</template-->
 
   </div>
 </template>
 
 <script>
 import pageHead from '@/components/PageHead.vue'
-
+var loading
 export default {
   components: { pageHead },
   data() {
@@ -111,17 +90,27 @@ export default {
     this.queryPaper()
   },
   methods: {
+    loading(){
+      loading = this.$loading({
+          lock: true,
+          text: 'ocr处理中',
+          spinner: 'el-icon-loading',
+          background: 'rgba(0, 0, 0, 0.7)'
+        });
+    },
+    closeLoading(){
+      loading.close();
+      this.queryPaper()
+    },
     queryPaper(){
+
       this.papers = []
       this.options = []
-      this.$message('点击查询');
       this.$axios({
         method: 'get',
         url: '/testPaper'
       })
       .then((result) => {
-
-        console.log(result)
         this.papers = result.data
 
         console.log(this.subjects)
@@ -140,7 +129,6 @@ export default {
       })
     },
     changePaper(e,item){
-      this.$message(this.selectValue);
       console.log("selectValue",this.selectValue)
       for (var i = 0; i < this.options.length; i++) {
         if(this.options[i].value == this.selectValue){
@@ -153,7 +141,6 @@ export default {
     clickPaper(id){
       for (var i = 0; i < this.papers.length; i++) {
         if(this.papers[i]._id == id){
-          this.$message(id);
           this.subjects = this.papers[i].subjects
           this.targetPaper = this.papers[i].paperUrl
         }

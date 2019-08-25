@@ -21,7 +21,7 @@
       </el-link>
     </el-col>
     <el-col :span="8">
-      <el-input v-model="input" width="100px" placeholder="搜索您您感兴趣的内容" style="border-radius:30px;padding-left:80px"></el-input>
+      <el-input  width="100px" placeholder="搜索您您感兴趣的内容" style="border-radius:30px;padding-left:80px"></el-input>
     </el-col>
     <el-col :span="5">
 
