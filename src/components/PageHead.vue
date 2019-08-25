@@ -67,7 +67,7 @@ export default {
       exampleUrl: require('../assets/top.png'),
       logoUrl: require('../assets/logo-study.png'),
 
-      //activeIndex: '1',
+      activeIndex: '1',
       src: require('../assets/login.png'),
       dialogVisible: false,
     }

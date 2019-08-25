@@ -13,26 +13,41 @@
     </el-row>
   </template>
 
-  <template>
-    <el-row>
-    <div style="float:left;font-size:20px;font-weight:bold;margin-top:10px">查询识别结果</div>
-    </el-row>
-    <el-row>
-<el-button style="margin-left: 10px;" size="small" type="success" @click="queryPaper">查询试卷信息</el-button>
 <template>
-  <el-select v-model="selectValue" placeholder="请选择" @change="changePaper">
-    <el-option
-      v-for="item in options"
-      :key="item.value"
-      :lable="item.lable"
-      :value="item.value">
-    </el-option>
-  </el-select>
-</template>
-</el-row>
+  <el-row>
+  <div style="float:left;font-size:20px;font-weight:bold;margin-top:10px">查询识别结果
+  <el-button style="margin-left: 10px;" size="small" type="success" @click="queryPaper">查询试卷信息</el-button></div>
+  </el-row>
+  <el-row>
+    <div v-for="paper in papers">
+      <el-col :span="8" class="block">
+          <span class="demonstration">{{ paper.paperName}}</span>
+          <el-image :src="paper.paperUrl"  style="width: 300px; height: 200px" fit="contain" @click.native="clickPaper(paper._id)"></el-image>
+          <i class="el-icon-edit" @click="openModifyForm(paper._id, paper.paperName)"></i>
+          <i class="el-icon-delete" @click="deletePaper(paper._id)"></i>
+      </el-col>
+    </div>
+  </el-row>
 </template>
 
+<el-dialog title="修改名称" :visible.sync="dialogFormVisible">
+  <el-form :model="modifyForm">
+    <el-form-item label="试卷名称" >
+      <el-input v-model="modifyForm.id" autocomplete="off" style="display:none"></el-input>
+      <el-input v-model="modifyForm.name" autocomplete="off"></el-input>
+    </el-form-item>
+  </el-form>
+  <div slot="footer" class="dialog-footer">
+    <el-button @click="dialogFormVisible = false">取 消</el-button>
+    <el-button type="primary" @click="modifyName">确 定</el-button>
+  </div>
+</el-dialog>
+
+
+
+
 <div class="demo-image__lazy">
+  <el-image  :src="targetPaper" style="width: 900px; height: 600px" :preview-src-list="[targetPaper]" fit="contain"></el-image>
   <div v-for="subject in subjects" style="margin-top:40px;border:2px">
   <el-image  :src="subject.imageUrl" lazy></el-image>
   <div v-for="item in subject.content">
@@ -73,37 +88,6 @@
   </el-row>
 </template-->
 
-    <!--template>
-      <el-row>
-      <div style="float:left;font-size:20px;font-weight:bold;margin-top:10px">我的练习(未批改)</div>
-      </el-row>
-      <el-row>
-        <div v-for="completedExercise in completedExercises">
-          <el-col :span="8" class="block">
-              <span class="demonstration">{{ completedExercise.name}}</span>
-              <el-image :src="completedExercise.src" :preview-src-list="[completedExercise.src]" style="width: 250px; height: 150px" fit="fill"></el-image>
-          </el-col>
-        </div>
-      </el-row>
-    </template>
-
-    <template>
-      <el-row>
-      <div style="float:left;font-size:20px;font-weight:bold;margin-top:10px">我的练习(已批改)</div>
-      </el-row>
-      <el-row>
-        <div v-for="completedExercise in completedExercises" >
-          <el-col :span="8" class="block">
-              <span class="demonstration">{{ completedExercise.name}}</span>
-              <el-image :src="completedExercise.src" :preview-src-list="[completedExercise.src]" style="width: 250px; height: 150px" fit="fill"></el-image>
-          </el-col>
-        </div>
-      </el-row>
-    </template-->
-
-
-
-
   </div>
 </template>
 
@@ -114,17 +98,17 @@ export default {
   components: { pageHead },
   data() {
     return {
-      completedExercises: [
-        {name: "2019年6月10日数学考试",src:require("../../assets/math.jpg")},
-        {name: "2019年5月10日数学考试",src:require("../../assets/math.jpg")},
-        {name: "2019年4月10日数学考试",src:require("../../assets/math.jpg")},
-      ],
       papers: [],
       options: [],
       subjects: [],
       selectValue: '',
-      demoUrl: 'https://vue-1255824916.cos.ap-guangzhou.myqcloud.com/8b490b80-bdd3-11e9-a5dc-7b138c49d7db.png'
+      targetPaper: '',
+      dialogFormVisible: false,
+      modifyForm: {'id': '', 'name': ""}
     }
+  },
+  mounted:function(){
+    this.queryPaper()
   },
   methods: {
     queryPaper(){
@@ -151,7 +135,7 @@ export default {
           })
         })
         if(this.papers[0]){
-          this.subjects = this.papers[0].subjects
+          this.clickPaper(this.papers[0]._id)
         }
       })
     },
@@ -165,9 +149,57 @@ export default {
         }
       }
 
-    }
-
-  }
+    },
+    clickPaper(id){
+      for (var i = 0; i < this.papers.length; i++) {
+        if(this.papers[i]._id == id){
+          this.$message(id);
+          this.subjects = this.papers[i].subjects
+          this.targetPaper = this.papers[i].paperUrl
+        }
+      }
+    },
+    changeName(){},
+    deletePaper(id){
+      this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          this.doDeletePaper(id)
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '已取消删除'
+          });
+        });
+    },
+    doDeletePaper(id){
+      this.$axios({
+        method: 'delete',
+        url: '/testPaper',
+        data: {'id': id}
+      }).then((result) => {
+        this.$message("删除成功",id);
+        this.queryPaper()
+    })
+  },
+  openModifyForm(id, name){
+    this.modifyForm.id = id
+    this.modifyForm.name = name
+    this.dialogFormVisible = true
+  },
+  modifyName(){
+    this.$axios({
+      method: 'put',
+      url: '/testPaper',
+      data: {'id': this.modifyForm.id, 'name': this.modifyForm.name}
+    }).then((result) => {
+      this.$message("修改成功",id);
+      this.queryPaper()
+  })
+  },
+}
 }
 </script>
 <style>
