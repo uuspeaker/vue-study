@@ -39,6 +39,7 @@
   <el-menu-item index="4" class="menu" @click="toBrain">脑力训练</el-menu-item>
   <el-menu-item index="5" class="menu" @click="toCourse">我的课程</el-menu-item>
   <el-menu-item index="6" class="menu" @click="toExercise">上传练习</el-menu-item>
+  <el-menu-item index="7" class="menu" @click="toSubject">我的题目</el-menu-item>
 </el-menu>
 <div class="line"></div>
 </div>
@@ -77,6 +78,7 @@ export default {
         console.log(key, keyPath);
       },
       toExercise() {this.$router.push({path: '/scanExercise',})},
+      toSubject() {this.$router.push({path: '/subjectIndex',})},
       toCourse() {this.$router.push({path: '/courseIndex',})},
       toBrain() {this.$router.push({path: '/brainIndex',})},
       toIndex() {this.$router.push({path: '/',})},
