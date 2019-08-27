@@ -5,21 +5,26 @@
 
     <el-container style="height: 500px; border: 1px solid #eee; margin-top:50px">
   <el-aside width="250px" >
-    <el-tree :data="data" :props="defaultProps"></el-tree>
+    <el-tree :data="data" :props="defaultProps" @node-click="handleNodeClick"></el-tree>
   </el-aside>
 
   <el-container>
 
     <el-main>
 
-        <el-row v-for="subject in subjectList">
-          ${{subject.questionContent}}
-          <!--div v-if="subject.startsWith('http://')">
-            <el-image :src="subject"></el-image>
-          </div>
-          <div v-else>
-            ${{subject}}
-          </div-->
+        <el-row v-for="subject in subjectList" >
+          <el-row>
+          <div v-for="item in subject.questionContent" style="float:left">
+            <div v-if="item.startsWith('http://')">
+              <el-image :src="item" ></el-image>
+            </div>
+            <div v-else>{{item}}</div>
+          </div></el-row>
+
+          <el-row style="float:left;">
+            <span style="margin-right:40px">难度系数:{{subject.questionLevel}}</span>题型：{{subject.questionType}}
+          </el-row>
+          <el-row style="border-bottom: 2px solid red;width: 800px;"></el-row>
         </el-row>
 
     </el-main>
@@ -50,7 +55,7 @@ import pageHead from '@/components/PageHead.vue'
     },
     mounted:function(){
       this.initKnowledgeTree()
-      this.initSubjectList()
+      this.initSubjectList(6042)
     },
     methods: {
       initKnowledgeTree(){
@@ -69,7 +74,7 @@ import pageHead from '@/components/PageHead.vue'
         console.log('children',node,children)
         node['children'] = children
         if(node.id == '4677'){
-          this.data = children
+          //this.data = children
         }
         for (var i = 0; i < children.length; i++) {
           if(children[i]['isLeaf'] != 'leaf'){
@@ -91,15 +96,18 @@ import pageHead from '@/components/PageHead.vue'
         console.log('getChildren',parentId,children)
         return children
       },
-      initSubjectList(){
+      initSubjectList(id){
         this.$axios({
           method: 'get',
           url: '/api/subjectList',
-          params: {'knowledgeId': 6042}
+          params: {'knowledgeId': id}
         }).then((result) => {
             this.tableData = result.data
             this.subjectList = result.data
         })
+      },
+      handleNodeClick(data) {
+        this.initSubjectList(data.id)
       }
     }
   };
