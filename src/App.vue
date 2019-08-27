@@ -22,7 +22,7 @@ export default {
   margin-top: 60px;
 }
 .index-middle {
-  padding-left: 20%;
-  padding-right: 20%;
+  padding-left: 5%;
+  padding-right: 5%;
 }
 </style>

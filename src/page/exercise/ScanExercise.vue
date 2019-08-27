@@ -108,7 +108,7 @@ export default {
       this.options = []
       this.$axios({
         method: 'get',
-        url: '/testPaper'
+        url: '/api/testPaper'
       })
       .then((result) => {
         this.papers = result.data
