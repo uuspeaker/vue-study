@@ -22,15 +22,7 @@
           </div></el-row>
 
           <el-row style="float:left;">
-<<<<<<< HEAD
             <span style="margin-right:40px">难度系数:{{subject.questionLevel}}</span>题型：{{subject.questionType}}
-
-
-=======
-            <span style="margin-right:40px">难度系数:{{subject.questionLevel}}</span>
-            <span style="margin-right:40px">题型：{{subject.questionType}}</span>
-            <span style="margin-right:40px">知识点：{{subject.knowledgeType}}</span>
->>>>>>> 33e6f3ab281ab1e080521ea2071096ac4febb030
           </el-row>
           <el-button @click="addToBasket(subject.id)"  type="success">加入试卷</el-button>
           <el-row style="border-bottom: 2px solid red;width: 800px;"></el-row>

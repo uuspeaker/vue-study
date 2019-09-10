@@ -6,9 +6,9 @@
 
     <el-main>
 
-        <el-row v-for="subject in subjectList" >
+        <el-row v-for="subject in subjectList" :key="subject.id">
           <el-row>
-          <div v-for="item in subject.questionContent" style="float:left">
+          <div v-for="item in subject.questionContent" style="float:left" >
             <div v-if="item.startsWith('http://')">
               <el-image :src="item" ></el-image>
             </div>
