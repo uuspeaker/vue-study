@@ -45,77 +45,25 @@ import pageHead from '@/components/PageHead.vue'
     components: { pageHead },
     data() {
       return {
-        data: [],
-        defaultProps: {
-         children: 'children',
-         label: 'lable'
-       },
-       tableData: [{
-            content: '王小虎'
-       }],
        subjectList: []
       };
     },
     mounted:function(){
-      this.initKnowledgeTree()
-      this.initSubjectList(6042)
+      this.initSubjectList()
     },
     methods: {
-      initKnowledgeTree(){
+      initSubjectList(){
         this.$axios({
           method: 'get',
-          url: '/api/knowledgeTree',
+          url: '/api/subjectBasket'
         }).then((result) => {
-          console.log('result',result)
-          var root = {id: '4677', lable: '初中数学', isLeaf: 'node'}
-          var children = this.buildTree(root, result.data)
-          this.data = children
-        })
-      },
-      buildTree(node, list){
-        var children = this.getChildren(node.id, list)
-        console.log('children',node,children)
-        node['children'] = children
-        if(node.id == '4677'){
-          //this.data = children
-        }
-        for (var i = 0; i < children.length; i++) {
-          if(children[i]['isLeaf'] != 'leaf'){
-            var nextChildren = this.buildTree(children[i], list)
-            children[i]['children'] = nextChildren
-          }
 
-        }
-        return children
-      },
-      getChildren(parentId, list){
-        var children = []
-        for (var index in list) {
-          //console.log(list[index]['parentId'],parentId)
-          if(list[index]['parentId'] == parentId){
-            children.push(list[index])
-          }
-        }
-        console.log('getChildren',parentId,children)
-        return children
-      },
-      initSubjectList(id){
-        this.$axios({
-          method: 'get',
-          url: '/api/subjectList',
-          params: {'knowledgeId': id}
-        }).then((result) => {
-            this.tableData = result.data
-            this.subjectList = result.data
         })
       },
-      handleNodeClick(data) {
-        this.initSubjectList(data.id)
-      },
-      addToPaper(id){
+      deleteFromGroup(id){
         console.log('addToPaper',id)
         this.$axios({
-          method: 'post',
+          method: 'put',
           url: '/api/subjectBasket',
           data: {'subjectId': id}
         }).then((result) => {

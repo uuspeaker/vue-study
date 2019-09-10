@@ -13,6 +13,7 @@ import CourseRecord from '@/page/course/CourseRecord'
 import CourseOnline from '@/page/course/CourseOnline'
 import BrainIndex from '@/page/brain/BrainIndex'
 import SubjectIndex from '@/page/subject/SubjectIndex'
+import SubjectGroupIndex from '@/page/subject/SubjectGroupIndex'
 
 Vue.use(Router)
 
@@ -26,6 +27,7 @@ export default new Router({
     {path: '/cropper2', name: 'Cropper2', component: Cropper2},
     {path: '/scanExercise', name: 'ScanExercise', component: ScanExercise},
     {path: '/subjectIndex', name: 'SubjectIndex', component: SubjectIndex},
+    {path: '/subjectGroupIndex', name: 'SubjectGroupIndex', component: SubjectGroupIndex},
     {path: '/courseIndex', name: 'CourseIndex', component: CourseIndex},
     {path: '/courseDetail', name: 'CourseDetail', component: CourseDetail},
     {path: '/courseRecord', name: 'CourseRecord', component: CourseRecord},
