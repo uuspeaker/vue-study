@@ -26,7 +26,7 @@
 
 
           </el-row>
-          <el-button @click="addToPaper(subject.id)"  type="success">加入试卷</el-button>
+          <el-button @click="addToBasket(subject.id)"  type="success">加入试卷</el-button>
           <el-row style="border-bottom: 2px solid red;width: 800px;"></el-row>
         </el-row>
 
@@ -112,14 +112,14 @@ import pageHead from '@/components/PageHead.vue'
       handleNodeClick(data) {
         this.initSubjectList(data.id)
       },
-      addToPaper(id){
-        console.log('addToPaper',id)
+      addToBasket(id){
+        console.log('addToBasket',id)
         this.$axios({
           method: 'post',
           url: '/api/subjectBasket',
           data: {'subjectId': id}
         }).then((result) => {
-
+          this.$message('已经添加到试题篮');
         })
       }
     }

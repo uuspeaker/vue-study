@@ -3,12 +3,6 @@
   <div>
     <pageHead></pageHead>
 
-    <el-container style="height: 500px; border: 1px solid #eee; margin-top:50px">
-  <el-aside width="250px" >
-    <el-tree :data="data" :props="defaultProps" @node-click="handleNodeClick"></el-tree>
-  </el-aside>
-
-  <el-container>
 
     <el-main>
 
@@ -26,13 +20,12 @@
 
 
           </el-row>
-          <el-button @click="addToPaper(subject.id)"  type="success">加入试卷</el-button>
+          <el-button @click="removeFromBasket(subject.id)"  type="success">删除</el-button>
           <el-row style="border-bottom: 2px solid red;width: 800px;"></el-row>
         </el-row>
 
     </el-main>
-  </el-container>
-</el-container>
+
 
 
   </div>
@@ -57,16 +50,18 @@ import pageHead from '@/components/PageHead.vue'
           method: 'get',
           url: '/api/subjectBasket'
         }).then((result) => {
-
+          this.subjectList = result.data
         })
       },
-      deleteFromGroup(id){
-        console.log('addToPaper',id)
+      removeFromBasket(id){
+        console.log('removeFromBasket',id)
         this.$axios({
           method: 'put',
           url: '/api/subjectBasket',
           data: {'subjectId': id}
         }).then((result) => {
+          this.$message('已从试题篮删除');
+          this.initSubjectList()
 
         })
       }
@@ -74,17 +69,5 @@ import pageHead from '@/components/PageHead.vue'
   };
 </script>
 <style>
-.el-header {
-    background-color: #B3C0D1;
-    color: #333;
-    line-height: 60px;
-  }
 
-  .el-aside {
-    color: #333;
-  }
-  .leftTitle1 {
-    font-size: 18px;
-    font-weight: bold;
-  }
 </style>
