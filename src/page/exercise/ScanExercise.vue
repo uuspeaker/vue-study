@@ -11,7 +11,7 @@
     <el-upload
   class="upload-demo"
   drag
-  action="http://129.211.21.250:3000/upload/"
+  action="/api/upload/"
   :on-progress="loading"
   :on-success="closeLoading"
   >
@@ -29,11 +29,12 @@
   </el-row>
   <el-row>
     <div v-for="paper in papers">
-      <el-col :span="8" class="block">
-          <span class="demonstration">{{ paper.paperName}}</span>
-          <el-image :src="paper.paperUrl"  style="width: 300px; height: 200px" fit="contain" @click.native="clickPaper(paper._id)"></el-image>
-          <i class="el-icon-edit" @click="openModifyForm(paper._id, paper.paperName)"></i>
-          <i class="el-icon-delete" @click="deletePaper(paper._id)"></i>
+      <el-col :span="8" class="block" style="text-align: center;">
+          <div class="demonstration">{{ paper.paperName}}
+            <i class="el-icon-edit" @click="openModifyForm(paper._id, paper.paperName)"></i>
+            <i class="el-icon-delete" @click="deletePaper(paper._id)"></i>
+          </div>
+          <el-image :src="paper.paperUrl"  style="width: 200px; height: 150px" fit="contain" @click.native="clickPaper(paper._id)"></el-image>
       </el-col>
     </div>
   </el-row>
@@ -55,14 +56,14 @@
 
 
 
-<div class="demo-image__lazy">
-  <el-image  :src="targetPaper" style="width: 900px; height: 600px" :preview-src-list="[targetPaper]" fit="contain"></el-image>
-  <div v-for="subject in subjects" style="margin-top:40px;border:2px">
-  <el-image  :src="subject.imageUrl" lazy></el-image>
-  <div v-for="item in subject.content">
-  <div style="font-weight: 20px;text-align: left;">{{item}}</div>
-  </div>
-  <div style="border-top: 2px solid red;width: 800px;margin-top:10px"></div>
+<div class="demo-image__lazy" style="text-align: left;">
+  <el-image  :src="targetPaper" style="width: 900px; height: 600px;" :preview-src-list="[targetPaper]" fit="contain"></el-image>
+  <div v-for="subject in subjects" style="margin-top:40px;border:2px;">
+    <el-image  :src="subject.imageUrl" style="width: 700px;" :preview-src-list="[subject.imageUrl]" fit="contain"></el-image>
+    <div v-for="item in subject.content">
+      <div style="font-weight: 20px;">{{item}}</div>
+    </div>
+    <div style="border-top: 2px solid red;width: 800px;margin-top:20px;margin-bottom:20px"></div>
   </div>
 </div>
 
@@ -164,7 +165,7 @@ export default {
     doDeletePaper(id){
       this.$axios({
         method: 'delete',
-        url: '/testPaper',
+        url: '/api/testPaper',
         data: {'id': id}
       }).then((result) => {
         this.$message("删除成功",id);
@@ -179,7 +180,7 @@ export default {
   modifyName(){
     this.$axios({
       method: 'put',
-      url: '/testPaper',
+      url: '/api/testPaper',
       data: {'id': this.modifyForm.id, 'name': this.modifyForm.name}
     }).then((result) => {
       this.$message("修改成功",id);

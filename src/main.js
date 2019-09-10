@@ -1,4 +1,4 @@
-// The Vue build version to load with the `import` command
+you// The Vue build version to load with the `import` command
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import App from './App'
@@ -11,7 +11,7 @@ import qs from 'qs'
 
 //设置baseURL
 // axios.defaults.baseURL = 'http://localhost';
-axios.defaults.baseURL = 'http://129.211.21.250';
+//axios.defaults.baseURL = 'http://129.211.21.250';
 //请求头
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 

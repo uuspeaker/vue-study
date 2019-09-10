@@ -12,19 +12,25 @@
 
     <el-main>
 
-        <el-row v-for="subject in subjectList" >
-          <el-row>
-          <div v-for="item in subject.questionContent" style="float:left">
-            <div v-if="item.startsWith('http://')">
+        <el-row v-for="subject in subjectList" :key="subject._id">
+          <el-row >
+          <div v-for="item in subject.questionContent" style="float:left;" >
+            <div v-if="item.startsWith('http://')" style="text-align: center;">
               <el-image :src="item" ></el-image>
             </div>
             <div v-else>{{item}}</div>
           </div></el-row>
 
           <el-row style="float:left;">
+<<<<<<< HEAD
             <span style="margin-right:40px">难度系数:{{subject.questionLevel}}</span>题型：{{subject.questionType}}
 
 
+=======
+            <span style="margin-right:40px">难度系数:{{subject.questionLevel}}</span>
+            <span style="margin-right:40px">题型：{{subject.questionType}}</span>
+            <span style="margin-right:40px">知识点：{{subject.knowledgeType}}</span>
+>>>>>>> 33e6f3ab281ab1e080521ea2071096ac4febb030
           </el-row>
           <el-button @click="addToBasket(subject.id)"  type="success">加入试卷</el-button>
           <el-row style="border-bottom: 2px solid red;width: 800px;"></el-row>
@@ -74,7 +80,7 @@ import pageHead from '@/components/PageHead.vue'
       },
       buildTree(node, list){
         var children = this.getChildren(node.id, list)
-        console.log('children',node,children)
+        //console.log('children',node,children)
         node['children'] = children
         if(node.id == '4677'){
           //this.data = children
@@ -96,7 +102,7 @@ import pageHead from '@/components/PageHead.vue'
             children.push(list[index])
           }
         }
-        console.log('getChildren',parentId,children)
+        //console.log('getChildren',parentId,children)
         return children
       },
       initSubjectList(id){
