@@ -100,7 +100,7 @@ import pageHead from '@/components/PageHead.vue'
       initSubjectList(id){
         this.$axios({
           method: 'get',
-          url: '/api/subjectList',
+          url: '/api/subjectOfKnowledge',
           params: {'knowledgeId': id}
         }).then((result) => {
             this.tableData = result.data
