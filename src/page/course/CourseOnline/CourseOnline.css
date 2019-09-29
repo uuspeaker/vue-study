@@ -1,0 +1,94 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body,
+#app_box {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.title {
+  margin: 10px 0;
+  text-align: center;
+}
+
+.text-right {
+  text-align: right;
+}
+
+video {
+  width: 100%;
+  max-width: 100px;
+  max-height: 100px;
+}
+
+.promption {
+  color: #A0A0A0
+}
+
+.im-log-box {
+  width: 100%;
+  height: 100%;
+  border: 1px solid #999;
+  margin: 0px;
+  box-sizing: border-box;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.im-log-box li {
+  margin: 2px 5px;
+  font-size: 14px;
+  color: #666;
+}
+
+#video_wrap {
+  height: 100px;
+}
+
+#video_wrap video {
+  margin: 0 5px;
+}
+
+#paint_box {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border: 1px solid #888;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.el-header,
+.el-footer {
+  padding: 0 !important;
+}
+
+.el-main {
+  padding: 0 !important;
+  overflow: hidden !important;
+  height: 100%;
+}
+
+.el-container {
+  height: 100%;
+  overflow: hidden;
+}
+
+.el-tabs__header {
+  margin: 0;
+}
+
+.el-icon-arrow-left,
+.el-icon-arrow-right {
+  font-size: 20px;
+}
+
+.version-info {
+  font-size: 14px;
+  color: #606266;
+}
