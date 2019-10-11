@@ -11,6 +11,8 @@ import CourseIndex from '@/page/course/CourseIndex'
 import CourseDetail from '@/page/course/CourseDetail'
 import CourseRecord from '@/page/course/CourseRecord'
 import CourseOnline from '@/page/course/CourseOnline/CourseOnline'
+import CourseTeacher from '@/page/course/CourseTeacher'
+import CourseStudent from '@/page/course/CourseStudent'
 import BrainIndex from '@/page/brain/BrainIndex'
 import SubjectIndex from '@/page/subject/SubjectIndex'
 import SubjectGroupIndex from '@/page/subject/SubjectGroupIndex'
@@ -32,6 +34,8 @@ export default new Router({
     {path: '/courseDetail', name: 'CourseDetail', component: CourseDetail},
     {path: '/courseRecord', name: 'CourseRecord', component: CourseRecord},
     {path: '/courseOnline', name: 'CourseOnline', component: CourseOnline},
+    {path: '/courseTeacher', name: 'CourseTeacher', component: CourseTeacher},
+    {path: '/courseStudent', name: 'CourseStudent', component: CourseStudent},
     {path: '/brainIndex', name: 'BrainIndex', component: BrainIndex},
     {path: '/pic', name: 'Pic', component: Pic}
   ]

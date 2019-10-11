@@ -39,6 +39,8 @@
 
   <el-container>
     <el-main>
+      <el-image :src="src1"  fit="fill" @click="toCourseTeacher"></el-image>
+      <el-image :src="src1"  fit="fill" @click="toCourseStudent"></el-image>
       <el-image :src="src1"  fit="fill" @click="toCourseOnline"></el-image>
       <el-image :src="src2"  fit="fill" @click="toCourseRecord"></el-image>
     </el-main>
@@ -63,6 +65,8 @@ export default {
   methods: {
     toCourseRecord() {this.$router.push({path: '/courseRecord',})},
     toCourseOnline() {this.$router.push({path: '/courseOnline',})},
+    toCourseTeacher() {this.$router.push({path: '/courseTeacher',})},
+    toCourseStudent() {this.$router.push({path: '/courseStudent',})},
   }
 }
 </script>
