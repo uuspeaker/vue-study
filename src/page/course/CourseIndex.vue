@@ -39,10 +39,9 @@
 
   <el-container>
     <el-main>
+      <el-input v-model="courseId" placeholder="输入课程id" clearable></el-input>
       <el-image :src="src1"  fit="fill" @click="toCourseTeacher"></el-image>
-      <el-image :src="src1"  fit="fill" @click="toCourseStudent"></el-image>
-      <el-image :src="src1"  fit="fill" @click="toCourseOnline"></el-image>
-      <el-image :src="src2"  fit="fill" @click="toCourseRecord"></el-image>
+      <el-image :src="src2"  fit="fill" @click="toCourseStudent"></el-image>
     </el-main>
   </el-container>
 </el-container>
@@ -60,13 +59,14 @@ export default {
       return {
         src1: require('../../assets/myCourse1.png'),
         src2: require('../../assets/myCourse2.png'),
+        courseId: 'edu_691fef5d'
       }
   },
   methods: {
-    toCourseRecord() {this.$router.push({path: '/courseRecord',})},
-    toCourseOnline() {this.$router.push({path: '/courseOnline',})},
-    toCourseTeacher() {this.$router.push({path: '/courseTeacher',})},
-    toCourseStudent() {this.$router.push({path: '/courseStudent',})},
+    toCourseRecord() {this.$router.push({path: '/courseRecord',params: {courseId: this.courseId}})},
+    toCourseOnline() {this.$router.push({path: '/courseOnline',params: {courseId: this.courseId}})},
+    toCourseTeacher() {this.$router.push({name: 'CourseTeacher',params: {courseId: this.courseId}})},
+    toCourseStudent() {this.$router.push({name: 'CourseStudent',params: {courseId: this.courseId}})},
   }
 }
 </script>
